@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>贪吃蛇游戏</title>
     <style>
         * {
@@ -266,6 +266,9 @@
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
             background: #0a0a15;
+            touch-action: none;
+            max-width: 95vw;
+            max-height: 60vh;
         }
 
         .controls {
@@ -565,44 +568,243 @@
 
         .mobile-controls {
             display: none;
-            margin-top: 20px;
-            gap: 10px;
+            margin-top: 15px;
+            gap: 5px;
         }
 
         .mobile-btn {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 255, 136, 0.2);
-            border: 2px solid #00ff88;
-            border-radius: 10px;
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 255, 136, 0.25);
+            border: 3px solid #00ff88;
+            border-radius: 15px;
             color: #00ff88;
-            font-size: 1.5rem;
+            font-size: 2rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.1s ease;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         .mobile-btn:active {
-            background: rgba(0, 255, 136, 0.4);
-            transform: scale(0.95);
+            background: rgba(0, 255, 136, 0.5);
+            transform: scale(0.9);
         }
 
         .btn-row {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 5px;
         }
 
+        .swipe-hint {
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* 移动端响应式样式 */
         @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
             .mobile-controls {
+                display: block;
+            }
+
+            .swipe-hint {
                 display: block;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .score-board {
+                gap: 20px;
+                margin-bottom: 10px;
+            }
+
+            .score-item {
+                font-size: 1rem;
+            }
+
+            .score-item span {
+                font-size: 1.2rem;
+            }
+
+            .speed-control {
+                margin-bottom: 10px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .speed-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .power-ups-display {
+                gap: 8px;
+                margin-bottom: 10px;
+                flex-wrap: wrap;
+            }
+
+            .power-up-indicator {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+            }
+
+            .legend {
+                gap: 10px;
+                font-size: 0.7rem;
+                margin-top: 10px;
             }
             
             .controls {
                 display: none;
+            }
+
+            .start-content {
+                padding: 20px;
+                max-height: 100vh;
+                overflow-y: auto;
+            }
+
+            .start-content h1 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+
+            .player-input {
+                margin-bottom: 15px;
+            }
+
+            .player-input input {
+                width: 200px;
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+
+            .start-btn {
+                padding: 12px 35px;
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+            }
+
+            .leaderboard-preview h3,
+            .achievements-preview h3 {
+                font-size: 1rem;
+            }
+
+            .leaderboard-list li {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .achievement-item {
+                padding: 8px 10px;
+                min-width: 60px;
+            }
+
+            .achievement-item .icon {
+                font-size: 1.4rem;
+            }
+
+            .achievement-item .name {
+                font-size: 0.65rem;
+            }
+
+            .game-over-content {
+                padding: 20px;
+            }
+
+            .game-over h2 {
+                font-size: 1.8rem;
+            }
+
+            .game-over .final-score {
+                font-size: 2.5rem;
+            }
+
+            .restart-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+                margin: 5px;
+            }
+
+            .color-btn {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .mobile-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+            }
+
+            .speed-btn {
+                padding: 5px 8px;
+                font-size: 0.75rem;
+            }
+
+            .legend {
+                font-size: 0.6rem;
+            }
+
+            .color-btn {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        /* 横屏优化 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .game-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            h1 {
+                width: 100%;
+                margin-bottom: 5px;
+                font-size: 1.3rem;
+            }
+
+            .score-board {
+                margin-bottom: 5px;
+            }
+
+            .speed-control {
+                margin-bottom: 5px;
+            }
+
+            .power-ups-display {
+                margin-bottom: 5px;
+            }
+
+            .legend {
+                display: none;
+            }
+
+            .mobile-controls {
+                position: fixed;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
             }
         }
     </style>
@@ -646,6 +848,7 @@
                 <button class="mobile-btn" id="downBtn">↓</button>
                 <button class="mobile-btn" id="rightBtn">→</button>
             </div>
+            <p class="swipe-hint">💡 也可在游戏区域滑动控制方向</p>
         </div>
     </div>
 
@@ -1854,7 +2057,7 @@
             }
         });
 
-        // 移动端控制
+        // 移动端控制 - 按钮
         document.getElementById('upBtn').addEventListener('click', () => {
             if (direction.y !== 1) nextDirection = { x: 0, y: -1 };
         });
@@ -1867,6 +2070,94 @@
         document.getElementById('rightBtn').addEventListener('click', () => {
             if (direction.x !== -1) nextDirection = { x: 1, y: 0 };
         });
+
+        // 触摸滑动控制
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        const minSwipeDistance = 30;
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: false });
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, { passive: false });
+
+        function handleSwipe() {
+            if (isPaused || isGameOver) return;
+            
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const absDeltaX = Math.abs(deltaX);
+            const absDeltaY = Math.abs(deltaY);
+
+            // 确保滑动距离足够
+            if (Math.max(absDeltaX, absDeltaY) < minSwipeDistance) return;
+
+            // 判断滑动方向（水平还是垂直）
+            if (absDeltaX > absDeltaY) {
+                // 水平滑动
+                if (deltaX > 0 && direction.x !== -1) {
+                    nextDirection = { x: 1, y: 0 }; // 右
+                } else if (deltaX < 0 && direction.x !== 1) {
+                    nextDirection = { x: -1, y: 0 }; // 左
+                }
+            } else {
+                // 垂直滑动
+                if (deltaY > 0 && direction.y !== -1) {
+                    nextDirection = { x: 0, y: 1 }; // 下
+                } else if (deltaY < 0 && direction.y !== 1) {
+                    nextDirection = { x: 0, y: -1 }; // 上
+                }
+            }
+        }
+
+        // 防止移动端页面滚动
+        document.body.addEventListener('touchmove', (e) => {
+            if (gameStarted && !isGameOver) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // 响应式画布大小
+        function resizeCanvas() {
+            const maxWidth = Math.min(window.innerWidth * 0.95, 400);
+            const maxHeight = Math.min(window.innerHeight * 0.55, 400);
+            const size = Math.min(maxWidth, maxHeight);
+            
+            // 确保尺寸是 gridSize 的倍数
+            const newSize = Math.floor(size / gridSize) * gridSize;
+            
+            if (newSize >= 200 && newSize !== canvas.width) {
+                canvas.width = newSize;
+                canvas.height = newSize;
+                // 注意：tileCount 是常量，这里不改变游戏逻辑
+                // 只是视觉上缩放
+            }
+        }
+
+        // 窗口大小改变时调整
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 600) {
+                resizeCanvas();
+                if (!isGameOver && !isPaused) {
+                    draw();
+                }
+            }
+        });
+
+        // 初始调整
+        if (window.innerWidth <= 600) {
+            resizeCanvas();
+        }
 
         // 重新开始（带倒计时）
         restartBtn.addEventListener('click', () => {
